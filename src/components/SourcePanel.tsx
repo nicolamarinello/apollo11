@@ -1,5 +1,4 @@
-import original from '../../public/archive/luminary099-landing.agc?raw'
-import manifest from '../../public/archive/manifest.json'
+import { useArchive } from '../data/useArchive'
 import type { PhaseId } from '../playback/types'
 
 const excerpts = {
@@ -9,7 +8,10 @@ const excerpts = {
 } as const
 
 export default function SourcePanel({ phase }: { phase: PhaseId }) {
+  const { archive, error } = useArchive()
   if (phase === 'LANDED') return <aside className="source-panel landed-panel"><div className="eyebrow">LUMINARY 99 / REV 1</div><p>Historical playback complete.</p><span className="muted">No execution trace is loaded.</span></aside>
+  if (!archive) return <aside className="source-panel"><div className="eyebrow">LUMINARY 99 / REV 1</div><p>{error ? 'Source unavailable or integrity check failed. Historical playback remains available.' : 'Checking original source…'}</p></aside>
+  const { source: original, manifest } = archive
   const excerpt = excerpts[phase]
   const lines = original.split('\n').slice(excerpt.start - 1, excerpt.end)
   const url = `https://github.com/virtualagc/virtualagc/blob/${manifest.luminaryCommit}/Luminary099/LUNAR_LANDING_GUIDANCE_EQUATIONS.agc#L${excerpt.start}`
