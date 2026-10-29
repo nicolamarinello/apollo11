@@ -1,0 +1,30 @@
+{
+  "name": "eagle-descent",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "verify:assets": "node scripts/verify-assets.mjs",
+    "audit:references": "node --import tsx scripts/audit-references.ts"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.8.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.183.0",
+    "@vitejs/plugin-react": "^6.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^6.0.0",
+    "vite": "8.3.5"
+  }
+}

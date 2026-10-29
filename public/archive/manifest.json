@@ -1,0 +1,27 @@
+{
+  "retrievedAt": "2026-10-29",
+  "luminaryCommit": "17f42cbf4bcd4b0699815f79e8271fddafb76855",
+  "assets": [
+    {
+      "file": "luminary099-landing.agc",
+      "url": "https://raw.githubusercontent.com/virtualagc/virtualagc/17f42cbf4bcd4b0699815f79e8271fddafb76855/Luminary099/LUNAR_LANDING_GUIDANCE_EQUATIONS.agc",
+      "sha256": "544a199bb9808a225b5c14eeead783fe52cdad92c9b10a63697fc1aec921f44f",
+      "bytes": 34369,
+      "bundled": true
+    },
+    {
+      "file": "nasa-timeline.html",
+      "url": "https://www.nasa.gov/wp-content/uploads/static/history/SP-4029/Apollo_11i_Timeline.htm",
+      "sha256": "5ad23a0842efeed0e5a2542fb25c903434002683517c9b4f083479f00ac81bf1",
+      "bytes": 354634,
+      "bundled": false
+    },
+    {
+      "file": "nasa-landing-journal.html",
+      "url": "https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11.landing.html",
+      "sha256": "990583a24adbd385a86d87ea1f0468002a5f734aab896024e396c1ed61369ceb",
+      "bytes": 147126,
+      "bundled": false
+    }
+  ]
+}

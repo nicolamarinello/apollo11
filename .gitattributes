@@ -1,0 +1,2 @@
+# Preserve the byte-for-byte archival source, including original whitespace.
+public/archive/*.agc -text -whitespace
