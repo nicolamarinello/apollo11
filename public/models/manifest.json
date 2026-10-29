@@ -1,0 +1,33 @@
+{
+  "retrievedAt": "2026-10-29",
+  "assets": [
+    {
+      "file": "nasa-apollo-lunar-module.glb",
+      "title": "Apollo Lunar Module",
+      "credit": "NASA/Michael D. Carbajal",
+      "sourcePage": "https://science.nasa.gov/3d-resources/apollo-lunar-module/",
+      "url": "https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/apollo-lunar-module/Apollo%20Lunar%20Module.glb",
+      "resolvedUrl": "https://assets.science.nasa.gov/content/dam/science/cds/3d/resources/model/apollo-lunar-module/Apollo%20Lunar%20Module.glb",
+      "sourceRepository": "https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/Apollo%20Lunar%20Module",
+      "usageGuidelines": "https://www.nasa.gov/nasa-brand-center/",
+      "sha256": "379101dfcee399267addf771709107c35e826b0b9e5233272f123e4c8a585c4e",
+      "bytes": 716840,
+      "bundled": true,
+      "modified": false,
+      "validation": {
+        "format": "glTF 2.0 binary",
+        "selfContained": true,
+        "meshes": 134,
+        "materials": 12,
+        "images": 6,
+        "extensionsRequired": [
+          "KHR_draco_mesh_compression"
+        ]
+      },
+      "embeddedAssetMetadata": {
+        "generator": "Khronos glTF Blender I/O v4.2.57",
+        "version": "2.0"
+      }
+    }
+  ]
+}
