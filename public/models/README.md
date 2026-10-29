@@ -7,7 +7,9 @@
 - Size: 716,840 bytes (700.04 KiB).
 - GLB header identifies glTF 2.0; declared file length matches the download.
 - JSON metadata lists 134 meshes, 12 materials and 6 embedded images, with no external buffer/image dependencies.
-- Requires `KHR_draco_mesh_compression`: use Three.js `GLTFLoader` with a configured `DRACOLoader` when integrating it. Geometry has not yet been decoded or visually verified in this project.
-- The app currently renders its existing simplified model. This downloaded original is prepared for a subsequent scene integration and visual treatment.
+- Requires `KHR_draco_mesh_compression`. The app loads this original file using Three.js `GLTFLoader` with a locally hosted Draco decoder. Geometry is decoded in the browser and has been visually inspected in the scene.
+- `src/scene/NasaLunarModule.tsx` clones the loaded scene and materials, scales the horizontal footprint to 2.8 illustrative scene units, centers it horizontally, and places the bottom of the landing pads at −0.89 relative to the phase pose. At touchdown the pads meet the terrain's −0.16 surface plane. This is visual normalization, not a declaration of real-world scale or a measured vehicle pose.
+- Materials receive muted gold/neutral colors, increased roughness and flat shading while retaining the original model geometry and textures. Rendering changes happen in memory; the GLB is not rewritten.
+- Draco runtime files are under `public/vendor/draco/`, from the pinned Three.js 0.186.1 package, with their license and fingerprints.
 
 Keep this original intact; save any styled or optimized derivative separately with its own provenance. Run `npm run verify:assets` to check the downloaded file's fingerprint.

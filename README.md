@@ -38,6 +38,8 @@ See [provenance](docs/PROVENANCE.md), [implementation plan](docs/PLAN.md), [capt
 - `src/scene/`: original low-poly illustration, with no telemetry calculations.
 - `src/components/`: source context and evidence disclosure.
 - `public/archive/`: pinned AGC file plus provenance fingerprints.
+- `public/models/`: original NASA Lunar Module asset and provenance. The scene imports the GLB, clones its materials for the illustrated treatment, and normalizes scale/ground contact without editing the source file.
+- `public/vendor/draco/`: locally hosted geometry decoder, license and fingerprints; no remote decoder service is needed.
 
 The source panel loads the exact archived file rather than a hand-retyped facsimile. NASA HTML snapshots used during research are ignored local files, not application assets.
 

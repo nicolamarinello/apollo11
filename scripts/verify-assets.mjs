@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import assert from 'node:assert/strict'
 
-for (const directory of ['archive', 'models']) {
+for (const directory of ['archive', 'models', 'vendor/draco']) {
   const root = new URL(`../public/${directory}/`, import.meta.url)
   const manifest = JSON.parse(await readFile(new URL('manifest.json', root), 'utf8'))
   for (const asset of manifest.assets.filter(a => a.bundled)) {

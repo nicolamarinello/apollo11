@@ -1,2 +1,4 @@
 # Preserve the byte-for-byte archival source, including original whitespace.
 public/archive/*.agc -text -whitespace
+# Keep the vendored decoder binaries and generated JavaScript byte-for-byte.
+public/vendor/draco/draco_* -text -whitespace
