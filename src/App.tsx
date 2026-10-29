@@ -4,16 +4,17 @@ import { formatDuration, formatMet } from './playback/engine'
 import { usePlayback } from './playback/usePlayback'
 import SourcePanel from './components/SourcePanel'
 import EvidenceDialog from './components/EvidenceDialog'
+import TelemetryPlots from './components/TelemetryPlots'
 
 const LunarScene = lazy(() => import('./scene/LunarScene'))
-const numeric = (n: number | null | undefined) => n == null ? '—' : n.toLocaleString('en-US', { maximumFractionDigits: 1 })
 
 export default function App() {
   const { frame, playing, speed, setSpeed, seek, toggle } = usePlayback()
   const [evidenceOpen, setEvidenceOpen] = useState(false)
+  const [codeOpen, setCodeOpen] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
   const [fullscreenNote, setFullscreenNote] = useState('')
-  const { observation, phase, event } = frame
+  const { phase, event } = frame
   useEffect(() => {
     const update = () => setFullscreen(Boolean(document.fullscreenElement))
     document.addEventListener('fullscreenchange', update)
@@ -22,6 +23,7 @@ export default function App() {
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (evidenceOpen || e.target instanceof HTMLInputElement || e.target instanceof HTMLButtonElement || e.target instanceof HTMLSelectElement || e.target instanceof HTMLAnchorElement) return
+      if (e.target instanceof HTMLCanvasElement && e.code !== 'Space') return
       if (e.code === 'Space') { e.preventDefault(); toggle() }
       if (e.code === 'ArrowRight') { e.preventDefault(); seek(frame.met + 10) }
       if (e.code === 'ArrowLeft') { e.preventDefault(); seek(frame.met - 10) }
@@ -41,20 +43,11 @@ export default function App() {
     <div className="scene-vignette" />
     <header className="mission-header">
       <div className="wordmark"><span className="mission-insignia">A<span>11</span></span><div><h1>EAGLE</h1><p>APOLLO 11 <span>/</span> POWERED DESCENT</p></div></div>
-      <div className="header-actions"><span className="archive-status"><i /> ARCHIVAL PLAYBACK</span><button className="icon-button" onClick={toggleFullscreen} aria-label={fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} title={fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}>{fullscreen ? '⊡' : '⛶'}</button></div>
+      <div className="header-actions"><span className="archive-status"><i /> ARCHIVAL PLAYBACK</span><button className="code-toggle" onClick={() => setCodeOpen(open => !open)} aria-label={codeOpen ? 'Hide guidance source' : 'Show guidance source'} aria-pressed={codeOpen} title="Original guidance source">〈/〉</button><button className="icon-button" onClick={toggleFullscreen} aria-label={fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'} title={fullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}>{fullscreen ? '⊡' : '⛶'}</button></div>
     </header>
-    <div className="mission-clock"><span className="eyebrow">MISSION ELAPSED TIME</span><time>{formatMet(frame.met, true)}</time><span className="clock-date">20 JULY 1969</span></div>
-    <section className="telemetry" aria-label="Reported instrument readings">
-      <div className="eyebrow telemetry-heading">LAST REPORTED READING</div>
-      <div className="metric"><span className="metric-label">ALTITUDE</span><div>{numeric(observation?.altitudeFt)}<small>FT</small></div></div>
-      <div className="metric"><span className="metric-label">DESCENT RATE</span><div>{numeric(observation?.descentFps)}<small>FT/S</small></div></div>
-      <div className="metric"><span className="metric-label">PROPELLANT</span><div>{numeric(observation?.fuelPercent)}<small>%</small></div></div>
-      {observation && <a className="reading-source" href={sources[observation.citation.source].url} target="_blank" rel="noreferrer" title={observation.citation.locator}>AT {formatMet(observation.met)} ↗<span>{Math.floor(frame.met-observation.met)}s before playhead · no interpolation</span></a>}
-      <div className="guidance"><span className="metric-label">GUIDANCE PHASE</span><strong>{phase.id === 'LANDED' ? 'SURFACE' : phase.id}</strong><span>{phase.label}</span></div>
-    </section>
-    <div className="scene-identification"><span className="crosshair">+</span><span>LM-5 <b>/</b> EAGLE<small>SCHEMATIC SCENE · NOT TO SCALE</small></span></div>
-    <SourcePanel phase={phase.id} />
-    <div className="terrain-label"><span>MARE TRANQUILLITATIS</span><small>ILLUSTRATIVE TERRAIN</small></div>
+    <div className="mission-clock"><span className="eyebrow">MISSION ELAPSED TIME</span><time>{formatMet(frame.met, true)}</time><div className="phase-status"><strong>{phase.id === 'LANDED' ? 'SURFACE' : phase.id}</strong><span>{phase.label}</span></div></div>
+    <TelemetryPlots met={frame.met} />
+    {codeOpen && <SourcePanel phase={phase.id} />}
     <section className="mission-note" aria-label="Mission explanation" aria-live="polite">
       <a href={sources[event.citation.source].url} target="_blank" rel="noreferrer" title={event.citation.locator}>{formatMet(event.met,event.met % 1 !== 0)} <span>↗</span></a>
       <h2>{event.title}</h2><p>{event.explanation}</p>
@@ -66,7 +59,7 @@ export default function App() {
         <input className="timeline-input" type="range" aria-label="Mission timeline" aria-valuetext={`${formatMet(frame.met,true)}, ${phase.label}`} min={mission.startMet} max={mission.endMet} step={0.01} value={frame.met} onChange={e=>seek(Number(e.target.value))} />
         <div className="phase-markers">{mission.phases.map((p,i)=><button key={p.id} className={`phase-marker ${phase.id === p.id ? 'active' : ''} ${i===3 ? 'last' : ''}`} style={{left:`${(p.met-mission.startMet)/(mission.endMet-mission.startMet)*100}%`}} onClick={()=>seek(p.met)} aria-label={`Jump to ${p.id}: ${p.label}`}><i /><strong>{p.id === 'LANDED' ? 'TOUCHDOWN' : p.id}</strong><span>{p.label}</span></button>)}</div>
       </div>
-      <div className="footer-fineprint"><span>HISTORICAL EVENTS & CREW CALLOUTS · NO AGC TRACE LOADED</span><span>SPACE TO PLAY / PAUSE <b>·</b> ← → 10 SECONDS</span></div>
+      <div className="footer-fineprint"><span>ARCHIVAL CALLOUTS · SCHEMATIC SCENE · NO AGC TRACE</span><span>SPACE TO PLAY / PAUSE <b>·</b> ← → 10 SECONDS</span></div>
     </footer>
     {fullscreenNote && <div role="status" className="fullscreen-note" onClick={()=>setFullscreenNote('')}>{fullscreenNote}</div>}
     {evidenceOpen && <EvidenceDialog onClose={()=>setEvidenceOpen(false)} />}

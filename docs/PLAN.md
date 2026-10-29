@@ -9,6 +9,14 @@
 - Genuine, pinned Luminary 99/1 source excerpts labeled as contextual highlights.
 - Provenance, integrity checks and playback tests.
 
+## Scene and interface refinement (implemented)
+
+- Mouse/touch orbit, wheel/pinch zoom, constrained pan and reset; keyboard camera controls when focused.
+- Demand rendering with control-driven invalidation and reduced-motion support.
+- Procedural crater bowls and raised rims, faceted regolith, deterministic rock placement and shadows; terrain remains illustrative.
+- Compact scrolling plots of the preceding two minutes of reported altitude, descent rate and propellant. Sample timestamps, gaps and source links are retained; values are never synthesized to fill a graph.
+- Code panel available on demand; guidance phase integrated with the mission clock; responsive plot strip on small screens.
+
 This increment establishes the visual and playback architecture. It does **not** satisfy the verified simulation/telemetry milestone below.
 
 ## Next increment: obtain a reproducible historical capture

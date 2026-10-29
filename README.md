@@ -19,11 +19,13 @@ npm run build
 
 Use Space to play/pause and left/right arrows to seek ten seconds. The timeline and phase buttons support seeking. Available playback speeds: 1×, 5×, 10×, 30×, 60×. Playback pauses while the page is hidden and stops at touchdown. The viewport is immersive from load; browser-level fullscreen needs the fullscreen button because browsers require a user gesture.
 
+Drag with the mouse or one finger to orbit Eagle; use the wheel or pinch to zoom. Right-drag or two-finger drag pans across the surface. The reset button restores the default view for the current mission phase. When the canvas is focused, arrow keys orbit, +/− zoom and Home resets; Space still controls playback. Camera angle, zoom and pan are preserved across phase changes. The original guidance source is available from the code button in the header.
+
 ## Evidence status
 
 **This build is an archival event/callout playback, not a verified AGC-driven simulation or continuous downlinked telemetry.** No validated machine-readable AGC descent trace was obtained. It must not be advertised as one.
 
-The mission is limited to the historical P63 → P64 → crew-assisted P66 → touchdown sequence. A small set of factual readings is transcribed from NASA-hosted records, with source and timestamp for every row. The app holds the latest complete observation without interpolating; missing channels remain blank. These are rounded instrument callouts, not rigorously verified telemetry. The time since the original report is always visible. The renderer uses phase illustrations, not a reconstructed trajectory.
+The mission is limited to the historical P63 → P64 → crew-assisted P66 → touchdown sequence. A small set of factual readings is transcribed from NASA-hosted records, with source and timestamp for every row. Compact plots scroll through the previous two minutes of playback, showing only individual reports. Gaps remain empty, with no connecting curves or inferred values. Each channel shows its latest report inside that window, with the original timestamp; hovering the report link gives its age. Altitude and descent axes scale to visible reports, while propellant uses a fixed 0–100% scale. These are rounded instrument callouts, not rigorously verified telemetry. The renderer uses phase illustrations, not a reconstructed trajectory. Procedural craters, rims, surface variation and rocks are original illustrative geometry rather than mapped lunar terrain.
 
 Original Luminary source is real, pinned and fingerprinted. Highlighting means educational context. There is no instruction trace. Original flight sequence tables contain references to P65/P67; displaying archival software does not add those alternative flight paths to the playback.
 
